@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 function formatTemperature(f) {
   return (
-    (Math.round((f - 273.15) * 100) / 100).toString().replace('.', ',') + 'º'
+    (Math.round((f - 273.15) * 10) / 10).toString().replace('.', ',') + ' ºC'
   );
 }
 
@@ -20,11 +20,11 @@ export default function ForecastScreen({route, navigation}) {
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Pressure</Text>
-        <Text style={styles.value}>{data.main.pressure}</Text>
+        <Text style={styles.value}>{data.main.pressure} hPa</Text>
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Humidity</Text>
-        <Text style={styles.value}>{data.main.humidity}</Text>
+        <Text style={styles.value}>{data.main.humidity} %</Text>
       </View>
       <View style={styles.field}>
         <Text style={styles.label}>Max Temperature</Text>
@@ -32,7 +32,7 @@ export default function ForecastScreen({route, navigation}) {
           {formatTemperature(data.main.temp_max)}
         </Text>
       </View>
-      <View style={styles.field}>
+      <View style={styles.lastField}>
         <Text style={styles.label}>Min Temperature</Text>
         <Text style={styles.value}>
           {formatTemperature(data.main.temp_min)}
@@ -60,19 +60,33 @@ const styles = StyleSheet.create({
     flex: 0,
     justifyContent: "center",
     alignItems: "center",
+    marginHorizontal: 6,
     padding: 12,
-    flexDirection: "row"
+    flexDirection: "row",
+    borderTopWidth: 0.5,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+  },
+  lastField: {
+    flex: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 6,
+    padding: 12,
+    flexDirection: "row",
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
   },
   label: {
     flex: 1,
     color: '#ffffff',
-    fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 18,
   },
   value: {
     flex: 1,
     color: '#ffffff',
-    fontSize: 24,
+    fontSize: 18,
     textAlign: "right",
+    fontWeight: 'bold',
   },
 });
