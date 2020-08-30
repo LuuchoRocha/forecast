@@ -4,6 +4,8 @@ import {Text, View, StyleSheet, Image, Dimensions} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {ScrollView} from 'react-native-gesture-handler';
 
+// Based on:
+// https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words/7490772#7490772
 const CARDINALS = [
   'North',
   'North-northeast',
@@ -23,16 +25,21 @@ const CARDINALS = [
   'North-northwest',
 ];
 
+// The OpenWeather results are provided in Kelvin degrees.
+// For that reason, we're converting them to Celsius here.
 function formatTemperature(t) {
   return (
     (Math.round((t - 273.15) * 10) / 10).toString().replace('.', ',') + ' ºC'
   );
 }
+
+// Based on:
+// https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words/7490772#7490772
 function formatWindDirection(w) {
   return CARDINALS[Math.floor(w / 22.5 + 0.5) % 16];
 }
 
-export default function ForecastScreen({route, navigation}) {
+export default function ForecastScreen({route}) {
   const data = JSON.parse(route.params.data);
 
   return (
