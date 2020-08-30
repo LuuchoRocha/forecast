@@ -27,15 +27,19 @@ export default function HomeScreen({navigation}) {
       await AsyncStorage.setItem('searches', JSON.stringify(searches));
       loadSearches();
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   }
 
   async function handleSearch() {
+    await actuallySearch(query);
+  }
+
+  async function actuallySearch(city) {
     try {
-      if (query.length > 0) {
+      if (city.length > 0) {
         setLoading(true);
-        const response = await API.getCurrent(query);
+        const response = await API.getCurrent(city);
         const jsonResponse = await response.json();
         if (jsonResponse.cod == 200) {
           navigation.navigate('Forecast', {
@@ -43,7 +47,7 @@ export default function HomeScreen({navigation}) {
           });
           saveSearch(jsonResponse.name);
         } else {
-          Alert.alert('Not found', "Coudln't find any results for " + query);
+          Alert.alert('Not found', "Coudln't find any results for " + city);
         }
       }
     } catch (error) {
@@ -53,7 +57,7 @@ export default function HomeScreen({navigation}) {
     }
   }
 
-  const loadSearches = useCallback(async function () {
+  const loadSearches = useCallback(async function() {
     const searches = await AsyncStorage.getItem('searches');
     if (searches) {
       setList(JSON.parse(searches));
@@ -61,7 +65,6 @@ export default function HomeScreen({navigation}) {
   }, []);
 
   useEffect(() => {
-    console.log(new Date());
     loadSearches();
   }, [loadSearches]);
 
@@ -75,7 +78,7 @@ export default function HomeScreen({navigation}) {
         onChangeText={setQuery}
         onSearch={handleSearch}
       />
-      <CitiesList data={list} loading={loading} navigation={navigation} />
+      <CitiesList data={list} loading={loading} onPress={actuallySearch} />
     </SafeAreaView>
   );
 }
