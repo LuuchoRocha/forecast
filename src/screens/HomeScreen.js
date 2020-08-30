@@ -27,7 +27,7 @@ export default function HomeScreen({navigation}) {
       await AsyncStorage.setItem('searches', JSON.stringify(searches));
       loadSearches();
     } catch (error) {
-      console.warn(error);
+      Alert.alert('Error', error.toString());
     }
   }
 
@@ -74,9 +74,9 @@ export default function HomeScreen({navigation}) {
       <SearchInput
         value={query}
         autoFocus={true}
-        placeholder="Search cities by name..."
         onChangeText={setQuery}
         onSearch={handleSearch}
+        placeholder="Search..."
       />
       <CitiesList data={list} loading={loading} onPress={actuallySearch} />
     </SafeAreaView>

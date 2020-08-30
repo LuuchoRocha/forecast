@@ -30,6 +30,8 @@ export default function SearchInput({
           placeholder={placeholder}
           onChangeText={onChangeText}
           style={styles.input}
+          underlineColorAndroid='transparent'
+          placeholderTextColor = "#cccccc"
         />
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={onSearch}>
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
+    alignContent: 'center',
     height: 40,
   },
   icon: {
@@ -58,9 +61,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 18,
-    padding: 8,
+    fontSize: 16,
     color: '#ffffff',
+    paddingLeft: 12,
     height: 40,
   },
   button: {

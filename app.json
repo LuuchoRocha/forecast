@@ -23,7 +23,12 @@
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "com.luuchorocha.forecast"
+      "package": "com.luuchorocha.forecast",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDrZFucbe_Uq_Pp0Z1QIzxKBhO3_u6hmCQ"
+        }
+      }
     }
   }
 }
